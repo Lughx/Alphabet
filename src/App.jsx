@@ -166,24 +166,19 @@ function App() {
 
       if (element.static) {
         temporal.push(element)
-
+        last = element.dynamic
       } else {
-
         const random = getRandomInt(3)
         let dynamic = ""
         if (random === 0) dynamic = "i"
         else if (random === 1) dynamic = "d"
         else if (random === 2) dynamic = "j"
 
-        temporal.push({
-          main: element.main,
-          dynamic: dynamic,
-          static: false
-        })
         if (last === dynamic) count++
         else count = 0
 
-        if (count > 2) {
+        console.log(count)
+        if (count > 0) {
           switch (dynamic) {
             case "i":
               dynamic = "j"
@@ -195,9 +190,14 @@ function App() {
               dynamic = "i"
               break;
           }
+          count = 0
         }
+        temporal.push({
+          main: element.main,
+          dynamic: dynamic,
+          static: false
+        })
         last = dynamic
-        console.log(dynamic)
       }
     }
     setLetters(temporal)
